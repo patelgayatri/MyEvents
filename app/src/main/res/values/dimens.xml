@@ -1,0 +1,6 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="contentpadding">8dp</dimen>
+    <dimen name="normal_margin">16dp</dimen>
+    <dimen name="editMargin">20dp</dimen>
+</resources>

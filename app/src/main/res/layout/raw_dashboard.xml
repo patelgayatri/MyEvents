@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="@dimen/contentpadding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/contentpadding"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name_txt"
+            style="@style/textCardStyleBold" />
+
+        <TextView
+            android:id="@+id/date_txt"
+            style="@style/textCardStyle" />
+
+        <TextView
+            android:id="@+id/time_txt"
+            style="@style/textCardStyle" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pacifico"
+        android:gravity="center"
+        android:text="Add Event"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp" />
+
+    <EditText
+        android:id="@+id/eventName"
+        style="@style/editTextStyle"
+        android:hint="@string/name" />
+
+    <EditText
+        android:id="@+id/eventDate"
+        style="@style/editTextStyle"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:hint="@string/date" />
+
+    <EditText
+        android:id="@+id/eventTime"
+        style="@style/editTextStyle"
+        android:layout_marginBottom="@dimen/normal_margin"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:hint="@string/time" />
+
+    <Button
+        android:id="@+id/add_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/normal_margin"
+        android:background="#673AB7"
+        android:fontFamily="@font/pacifico"
+        android:text="save"
+        android:textColor="@color/white" />
+
+</LinearLayout>
