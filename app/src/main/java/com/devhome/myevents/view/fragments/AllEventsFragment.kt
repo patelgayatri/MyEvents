@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -58,8 +59,9 @@ class AllEventsFragment : Fragment(), EventsAdapter.Listener {
             })
     }
 
-    override fun onItemClick(category: Events) {
-        findNavController().navigate(R.id.action_AllEventFragment_to_AddEventFragment)
+    override fun onItemClick(event: Events) {
+        val bundle = bundleOf("event" to event)
+        findNavController().navigate(R.id.action_AllEventFragment_to_AddEventFragment,bundle)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
