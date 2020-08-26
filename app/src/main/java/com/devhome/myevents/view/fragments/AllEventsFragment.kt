@@ -12,6 +12,9 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.selection.SelectionTracker
+import androidx.recyclerview.selection.StableIdKeyProvider
+import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.devhome.myevents.R
@@ -42,9 +45,13 @@ class AllEventsFragment : Fragment(), EventsAdapter.Listener {
 
         var recyclerView = root?.findViewById<View>(R.id.recyclerview) as RecyclerView
 
-        val linearLayoutManager = LinearLayoutManager(activity)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        recyclerView.layoutManager = linearLayoutManager
+        with(recyclerView) {
+            val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(activity)
+            this.layoutManager = linearLayoutManager
+            linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+            layoutManager = linearLayoutManager
+            setHasFixedSize(true)
+        }
         recyclerView.isNestedScrollingEnabled = true
 
         viewModel.getEvents()
@@ -57,11 +64,19 @@ class AllEventsFragment : Fragment(), EventsAdapter.Listener {
                     recyclerView.adapter = productListAdapter
                 }
             })
+//        var tracker = SelectionTracker.Builder(
+//            "my-selection-id",
+//            recyclerView,
+//            StableIdKeyProvider(recyclerView),
+//            MyDetailsLookup(recyclerView),
+//            StorageStrategy.createLongStorage())
+//            .withOnItemActivatedListener(myItemActivatedListener)
+//            .build()
     }
 
     override fun onItemClick(event: Events) {
         val bundle = bundleOf("event" to event)
-        findNavController().navigate(R.id.action_AllEventFragment_to_AddEventFragment,bundle)
+        findNavController().navigate(R.id.action_AllEventFragment_to_AddEventFragment, bundle)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

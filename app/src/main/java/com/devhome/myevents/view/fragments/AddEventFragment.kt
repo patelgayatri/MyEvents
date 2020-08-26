@@ -113,7 +113,8 @@ class AddEventFragment : Fragment() {
                     local?.insertEvent(event)
                 }
             }
-            findNavController().navigate(R.id.action_AddEventFragment_to_AllEventFragment)
+            activity?.onBackPressed()
+            //findNavController().navigate(R.id.action_AddEventFragment_to_AllEventFragment)
         }
     }
 
