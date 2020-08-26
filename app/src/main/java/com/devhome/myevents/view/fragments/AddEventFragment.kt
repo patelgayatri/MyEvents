@@ -3,17 +3,18 @@ package com.devhome.myevents.view.fragments
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.devhome.myevents.R
 import com.devhome.myevents.data.AppDatabase
 import com.devhome.myevents.data.entity.Events
 import kotlinx.android.synthetic.main.fragment_add_event.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -24,6 +25,8 @@ class AddEventFragment : Fragment() {
     private var month: Int = 0
     private var day: Int = 0
     lateinit var eventData: Events
+     var countDownTimer: CountDownTimer?=null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,7 +58,11 @@ class AddEventFragment : Fragment() {
         val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
-            eventTime.setText("$hour : $minute")
+            val myFormat = "kk:mm"
+            val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
+            val formated_time = sdf.format(cal.getTime())
+            eventTime.setText(formated_time + ":00")
+            //eventTime.setText("$hour:$minute:00")
         }
 
         TimePickerDialog(
@@ -71,7 +78,11 @@ class AddEventFragment : Fragment() {
         val dpd = DatePickerDialog(
             this.requireActivity(),
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                eventDate.setText("" + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year)
+                val dateFormat =
+                    SimpleDateFormat("dd:MM:yyyy")
+                cal.set(year, monthOfYear, dayOfMonth, 0, 0, 0)
+                val dateString = dateFormat.format(cal.time)
+                eventDate.setText(dateString)
             },
             year,
             month,
@@ -88,6 +99,7 @@ class AddEventFragment : Fragment() {
                 eventName.setText(eventData.eventName)
                 eventDate.setText(eventData.eventDate)
                 eventTime.setText(eventData.eventTime)
+                setCounter(eventData)
             }
         }
         cal = Calendar.getInstance()
@@ -100,7 +112,6 @@ class AddEventFragment : Fragment() {
         if (isValidate()) {
             val local = activity?.application?.let { AppDatabase.getInstance(it).eventsDao() }
             var event = Events()
-            headerDetail.text = "Event"
             event.eventName = eventName.text.toString()
             event.eventDate = eventDate.text.toString()
             event.eventTime = eventTime.text.toString()
@@ -113,6 +124,7 @@ class AddEventFragment : Fragment() {
                     local?.insertEvent(event)
                 }
             }
+            countDownTimer?.cancel()
             activity?.onBackPressed()
             //findNavController().navigate(R.id.action_AddEventFragment_to_AllEventFragment)
         }
@@ -134,5 +146,43 @@ class AddEventFragment : Fragment() {
             }
             else -> return true
         }
+    }
+
+    private fun setCounter(eventData: Events) {
+        val currentTime = Calendar.getInstance().time
+        val endDateDay = eventData.eventDate + " " + eventData.eventTime
+        val format1 = SimpleDateFormat("dd:MM:yyyy hh:mm:ss", Locale.getDefault())
+        val endDate = format1.parse(endDateDay)
+
+        //milliseconds
+        var different = endDate.time - currentTime.time
+        countDownTimer = object : CountDownTimer(different, 1000) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                var diff = millisUntilFinished
+                val secondsInMilli: Long = 1000
+                val minutesInMilli = secondsInMilli * 60
+                val hoursInMilli = minutesInMilli * 60
+                val daysInMilli = hoursInMilli * 24
+
+                val elapsedDays = diff / daysInMilli
+                diff %= daysInMilli
+
+                val elapsedHours = diff / hoursInMilli
+                diff %= hoursInMilli
+
+                val elapsedMinutes = diff / minutesInMilli
+                diff %= minutesInMilli
+
+                val elapsedSeconds = diff / secondsInMilli
+
+                headerDetail.text =
+                    "$elapsedDays days $elapsedHours hs $elapsedMinutes min $elapsedSeconds sec"
+            }
+
+            override fun onFinish() {
+                headerDetail.text = "Wait is over!"
+            }
+        }.start()
     }
 }
