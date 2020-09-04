@@ -6,12 +6,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-
-
 @Entity
 class Events :Serializable{
     @PrimaryKey(autoGenerate = true)
-    var e_id: Int = 0
+    var eId: Int = 0
 
     @ColumnInfo(name = "event_name")
     var eventName: String? = null

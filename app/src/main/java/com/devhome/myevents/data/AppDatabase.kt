@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.devhome.myevents.data.dao.EventDao
 import com.devhome.myevents.data.entity.Events
 
-@Database(entities = arrayOf(Events::class),version = 1)
+@Database(entities = [Events::class],version = 1)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun eventsDao(): EventDao
     companion object {

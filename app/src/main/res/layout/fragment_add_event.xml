@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/normal_margin"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -11,21 +12,124 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/pacifico"
         android:gravity="center"
-        android:text="Add Event"
+        android:text="@string/add_event"
         android:textColor="#FFFFFF"
         android:textSize="50sp" />
+
+
+    <LinearLayout
+        android:id="@+id/viewLin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/normal_margin"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/eventDays"
+                style="@style/textCardStyleBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="@color/colorAccent"
+                android:gravity="center"
+                android:minWidth="60dp"
+                android:padding="@dimen/contentpadding"
+                android:textColor="@color/white"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/eventDaysLable"
+                style="@style/textStyle"
+                android:layout_width="match_parent"
+                android:layout_margin="3dp"
+                android:text="@string/days"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="@dimen/normal_margin"
+            android:layout_marginRight="@dimen/normal_margin">
+
+            <TextView
+                android:id="@+id/eventHours"
+                style="@style/textStyle"
+                android:background="@drawable/rectangle" />
+
+            <TextView
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_weight="0.1"
+                android:text="@string/colon" />
+
+            <TextView
+                android:id="@+id/eventMins"
+                style="@style/textStyle"
+                android:background="@drawable/rectangle" />
+
+            <TextView
+                style="@style/textStyle"
+                android:layout_weight="0.1"
+                android:text="@string/colon" />
+
+            <TextView
+                android:id="@+id/eventsecs"
+                style="@style/textStyle"
+                android:background="@drawable/rectangle" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/viewLinlable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/normal_margin"
+        android:layout_marginRight="@dimen/normal_margin"
+        android:layout_marginBottom="@dimen/editMargin"
+        android:visibility="gone">
+
+
+        <TextView
+            style="@style/textStyle"
+            android:text="@string/hours"
+            android:textSize="15sp" />
+
+        <TextView
+            style="@style/textStyle"
+            android:text="@string/mins"
+            android:textSize="15sp" />
+
+        <TextView
+            style="@style/textStyle"
+            android:text="@string/secs"
+            android:textSize="15sp" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/eventName"
         style="@style/editTextStyle"
-        android:hint="@string/name" />
+        android:layout_marginTop="@dimen/normal_margin"
+        android:hint="@string/name"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/eventDate"
         style="@style/editTextStyle"
         android:cursorVisible="false"
         android:focusable="false"
-        android:hint="@string/date" />
+        android:inputType="date"
+        android:hint="@string/date"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/eventTime"
@@ -33,7 +137,8 @@
         android:layout_marginBottom="@dimen/normal_margin"
         android:cursorVisible="false"
         android:focusable="false"
-        android:hint="@string/time" />
+        android:hint="@string/time"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/add_btn"
@@ -42,7 +147,7 @@
         android:layout_margin="@dimen/normal_margin"
         android:background="#673AB7"
         android:fontFamily="@font/pacifico"
-        android:text="save"
+        android:text="@string/save"
         android:textColor="@color/white" />
 
 </LinearLayout>

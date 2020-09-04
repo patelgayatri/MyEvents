@@ -1,19 +1,28 @@
 package com.devhome.myevents.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.devhome.myevents.data.AppDatabase
 import com.devhome.myevents.data.entity.Events
-import org.w3c.dom.Entity
+import com.devhome.myevents.data.repo.EventRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class AllEventsViewModel(application: Application) : AndroidViewModel(application) {
+class AllEventsViewModel(application: Application):AndroidViewModel(application){
 
-    var mutableLiveData: MutableLiveData<List<Events>> = MutableLiveData()
-    private val local = AppDatabase.getInstance(application.applicationContext).eventsDao()
+    private val repository:EventRepository
+    val allEvents:LiveData<List<Events>>
 
-    fun getEvents() {
-        mutableLiveData.value = local.getAllEvents()
+    init {
+        val eventDao=AppDatabase.getInstance(application.applicationContext).eventsDao()
+        repository= EventRepository(eventDao)
+        allEvents=repository.eventList
     }
+    fun insert(events: Events)=viewModelScope.launch(Dispatchers.IO) {
+        repository.insertEvent(events)
+    }
+    fun update(events: Events)=viewModelScope.launch(Dispatchers.IO) {
+        repository.updateEvent(events)
+    }
+
 }

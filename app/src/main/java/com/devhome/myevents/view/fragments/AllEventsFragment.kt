@@ -1,20 +1,14 @@
 package com.devhome.myevents.view.fragments
 
-import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StableIdKeyProvider
-import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.devhome.myevents.R
@@ -24,11 +18,6 @@ import com.devhome.myevents.viewmodel.AllEventsViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class AllEventsFragment : Fragment(), EventsAdapter.Listener {
-
-    companion object {
-        fun newInstance() =
-            AllEventsFragment()
-    }
 
     private val viewModel: AllEventsViewModel by viewModels()
 
@@ -43,47 +32,40 @@ class AllEventsFragment : Fragment(), EventsAdapter.Listener {
 
     private fun initialize(root: View?) {
 
-        var recyclerView = root?.findViewById<View>(R.id.recyclerview) as RecyclerView
-
-        with(recyclerView) {
-            val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(activity)
-            this.layoutManager = linearLayoutManager
-            linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-            layoutManager = linearLayoutManager
-            setHasFixedSize(true)
-        }
-        recyclerView.isNestedScrollingEnabled = true
-
-        viewModel.getEvents()
-        viewModel.mutableLiveData.observe(
-            viewLifecycleOwner,
-            Observer { productList ->
-
-                productList?.let {
-                    var productListAdapter = EventsAdapter(it.toTypedArray(), this)
-                    recyclerView.adapter = productListAdapter
-                }
-            })
-//        var tracker = SelectionTracker.Builder(
-//            "my-selection-id",
-//            recyclerView,
-//            StableIdKeyProvider(recyclerView),
-//            MyDetailsLookup(recyclerView),
-//            StorageStrategy.createLongStorage())
-//            .withOnItemActivatedListener(myItemActivatedListener)
-//            .build()
+        val recyclerView = root?.findViewById<RecyclerView>(R.id.recyclerview)
+        val adapter = EventsAdapter(this)
+        recyclerView?.adapter = adapter
+        recyclerView?.layoutManager = LinearLayoutManager(activity)
+        viewModel.allEvents.observe(viewLifecycleOwner, Observer { events ->
+            events.let {
+                adapter.setEvents(it)
+            }
+        })
     }
 
-    override fun onItemClick(event: Events) {
-        val bundle = bundleOf("event" to event)
+    override fun onItemClick(event: Events, position: Int) {
+        val bundle = bundleOf("event" to event,"pos" to position)
         findNavController().navigate(R.id.action_AllEventFragment_to_AddEventFragment, bundle)
+    }
+
+    override fun onLongitemClick(events: Events): Boolean {
+//        activity?.let {
+//            AlertDialogBu(it)
+//                .setTitle(resources.getString(R.string.title))
+//                .setMessage(resources.getString(R.string.supporting_text))
+//                .setNeutralButton(resources.getString(R.string.yes)) { dialog, which ->
+//                    // Respond to neutral button press
+//                }
+//                .setPositiveButton(resources.getString(R.string.no)) { dialog, which ->
+//                    // Respond to positive button press
+//                }
+//                .show()
+//        }
+        return true
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
-        activity?.title = "My Events"
-
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             findNavController().navigate(R.id.action_AllEventFragment_to_AddEventFragment)
         }

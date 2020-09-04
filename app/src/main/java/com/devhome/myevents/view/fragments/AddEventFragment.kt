@@ -4,15 +4,19 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.devhome.myevents.R
-import com.devhome.myevents.data.AppDatabase
 import com.devhome.myevents.data.entity.Events
+import com.devhome.myevents.utils.saveDateFormat
+import com.devhome.myevents.viewmodel.AllEventsViewModel
 import kotlinx.android.synthetic.main.fragment_add_event.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,18 +24,20 @@ import java.util.*
 
 class AddEventFragment : Fragment() {
 
-    lateinit var cal: Calendar
+    private lateinit var cal: Calendar
     private var year: Int = 0
     private var month: Int = 0
     private var day: Int = 0
-    lateinit var eventData: Events
-     var countDownTimer: CountDownTimer?=null
+    private lateinit var eventData: Events
+    private var countDownTimer: CountDownTimer? = null
+    private var TAG = "====="
+    private val viewModel: AllEventsViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_event, container, false)
     }
 
@@ -53,6 +59,12 @@ class AddEventFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause: ")
+        countDownTimer?.cancel()
+
+    }
 
     private fun timePickerDialogue() {
         val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
@@ -60,8 +72,8 @@ class AddEventFragment : Fragment() {
             cal.set(Calendar.MINUTE, minute)
             val myFormat = "kk:mm"
             val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
-            val formated_time = sdf.format(cal.getTime())
-            eventTime.setText(formated_time + ":00")
+            val formatedTime = sdf.format(cal.time)
+            eventTime.setText("$formatedTime:00")
             //eventTime.setText("$hour:$minute:00")
         }
 
@@ -78,16 +90,15 @@ class AddEventFragment : Fragment() {
         val dpd = DatePickerDialog(
             this.requireActivity(),
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                val dateFormat =
-                    SimpleDateFormat("dd:MM:yyyy")
                 cal.set(year, monthOfYear, dayOfMonth, 0, 0, 0)
-                val dateString = dateFormat.format(cal.time)
+                val dateString = saveDateFormat.format(cal.time)
                 eventDate.setText(dateString)
             },
             year,
             month,
             day
         )
+        dpd.datePicker.minDate = System.currentTimeMillis() - 1000
         dpd.show()
 
     }
@@ -95,11 +106,18 @@ class AddEventFragment : Fragment() {
     private fun initializeData() {
         when {
             arguments != null -> {
+                headerDetail.visibility = View.GONE
+                viewLinlable.visibility = View.VISIBLE
+                viewLin.visibility = View.VISIBLE
                 eventData = arguments?.getSerializable("event") as Events
+                val pos = arguments?.getInt("pos")
                 eventName.setText(eventData.eventName)
                 eventDate.setText(eventData.eventDate)
                 eventTime.setText(eventData.eventTime)
-                setCounter(eventData)
+
+                viewModel.allEvents.observe(viewLifecycleOwner, Observer {
+                    setCounter(it[pos!!])
+                })
             }
         }
         cal = Calendar.getInstance()
@@ -110,18 +128,17 @@ class AddEventFragment : Fragment() {
 
     private fun insertData() {
         if (isValidate()) {
-            val local = activity?.application?.let { AppDatabase.getInstance(it).eventsDao() }
-            var event = Events()
+            val event = Events()
             event.eventName = eventName.text.toString()
             event.eventDate = eventDate.text.toString()
             event.eventTime = eventTime.text.toString()
             when {
                 arguments != null -> {
-                    event.e_id = eventData.e_id
-                    local?.updateEvent(event)
+                    event.eId = eventData.eId
+                    viewModel.update(event)
                 }
                 else -> {
-                    local?.insertEvent(event)
+                    viewModel.insert(event)
                 }
             }
             countDownTimer?.cancel()
@@ -131,31 +148,33 @@ class AddEventFragment : Fragment() {
     }
 
     private fun isValidate(): Boolean {
-        when {
+        return when {
             eventName.text.toString().isEmpty() -> {
                 Toast.makeText(activity, "Enter Event Name", Toast.LENGTH_SHORT).show()
-                return false
+                false
             }
             eventDate.text.toString().isEmpty() -> {
                 Toast.makeText(activity, "Enter Date", Toast.LENGTH_SHORT).show()
-                return false
+                false
             }
             eventTime.text.toString().isEmpty() -> {
                 Toast.makeText(activity, "Enter Time", Toast.LENGTH_SHORT).show()
-                return false
+                false
             }
-            else -> return true
+            else -> true
         }
     }
 
     private fun setCounter(eventData: Events) {
         val currentTime = Calendar.getInstance().time
         val endDateDay = eventData.eventDate + " " + eventData.eventTime
-        val format1 = SimpleDateFormat("dd:MM:yyyy hh:mm:ss", Locale.getDefault())
+        val format1 = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
         val endDate = format1.parse(endDateDay)
+        val sameDate = saveDateFormat.format(currentTime)
+
 
         //milliseconds
-        var different = endDate.time - currentTime.time
+        val different = endDate.time - currentTime.time
         countDownTimer = object : CountDownTimer(different, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
@@ -175,14 +194,32 @@ class AddEventFragment : Fragment() {
                 diff %= minutesInMilli
 
                 val elapsedSeconds = diff / secondsInMilli
-
-                headerDetail.text =
-                    "$elapsedDays days $elapsedHours hs $elapsedMinutes min $elapsedSeconds sec"
+                when {
+                    sameDate == eventData.eventDate -> {
+                        eventDays.text = getString(R.string.today)
+                        eventDaysLable.visibility = View.GONE
+                    }
+                    elapsedDays == 0L -> {
+                        eventDays.text = getString(R.string.tomorrow)
+                        eventDaysLable.visibility = View.GONE
+                    }
+                    else -> {
+                        eventDays.text = "$elapsedDays"
+                        eventDaysLable.visibility = View.VISIBLE
+                    }
+                }
+                eventHours.text = "$elapsedHours"
+                eventMins.text = "$elapsedMinutes"
+                eventsecs.text = "$elapsedSeconds"
             }
 
             override fun onFinish() {
-                headerDetail.text = "Wait is over!"
+                headerDetail.visibility = View.VISIBLE
+                viewLinlable.visibility = View.GONE
+                viewLin.visibility = View.GONE
+                headerDetail.text = getString(R.string.done)
             }
         }.start()
     }
+
 }
