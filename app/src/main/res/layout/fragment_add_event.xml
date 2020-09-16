@@ -7,15 +7,17 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/headerDetail"
-        android:layout_width="match_parent"
+        android:id="@+id/eventDays"
+        style="@style/textCardStyleBold"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/pacifico"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="@color/colorAccent"
         android:gravity="center"
-        android:text="@string/add_event"
-        android:textColor="#FFFFFF"
-        android:textSize="50sp" />
-
+        android:minWidth="60dp"
+        android:padding="@dimen/contentpadding"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
 
     <LinearLayout
         android:id="@+id/viewLin"
@@ -32,18 +34,6 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/eventDays"
-                style="@style/textCardStyleBold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle"
-                android:backgroundTint="@color/colorAccent"
-                android:gravity="center"
-                android:minWidth="60dp"
-                android:padding="@dimen/contentpadding"
-                android:textColor="@color/white"
-                android:textSize="40sp" />
 
             <TextView
                 android:id="@+id/eventDaysLable"
@@ -145,7 +135,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/normal_margin"
-        android:background="#673AB7"
+        android:background="@color/colorAccent"
         android:fontFamily="@font/pacifico"
         android:text="@string/save"
         android:textColor="@color/white" />

@@ -1,5 +1,7 @@
-package com.devhome.myevents.view.fragments
+package com.devhome.myevents.ui.events
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.devhome.myevents.R
 import com.devhome.myevents.data.entity.Events
-import com.devhome.myevents.view.adapters.EventsAdapter
-import com.devhome.myevents.viewmodel.AllEventsViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.fragment_allevent.*
 
 class AllEventsFragment : Fragment(), EventsAdapter.Listener {
 
@@ -38,29 +39,36 @@ class AllEventsFragment : Fragment(), EventsAdapter.Listener {
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         viewModel.allEvents.observe(viewLifecycleOwner, Observer { events ->
             events.let {
+                if (it.size > 0) no_data_lin.visibility = View.GONE
+                else no_data_lin.visibility = View.VISIBLE
                 adapter.setEvents(it)
             }
         })
     }
 
     override fun onItemClick(event: Events, position: Int) {
-        val bundle = bundleOf("event" to event,"pos" to position)
+        val bundle = bundleOf("event" to event, "pos" to position)
         findNavController().navigate(R.id.action_AllEventFragment_to_AddEventFragment, bundle)
     }
 
     override fun onLongitemClick(events: Events): Boolean {
-//        activity?.let {
-//            AlertDialogBu(it)
-//                .setTitle(resources.getString(R.string.title))
-//                .setMessage(resources.getString(R.string.supporting_text))
-//                .setNeutralButton(resources.getString(R.string.yes)) { dialog, which ->
-//                    // Respond to neutral button press
-//                }
-//                .setPositiveButton(resources.getString(R.string.no)) { dialog, which ->
-//                    // Respond to positive button press
-//                }
-//                .show()
-//        }
+        val dialogBuilder = AlertDialog.Builder(activity)
+        dialogBuilder.setTitle(getString(R.string.str_dlt))
+        dialogBuilder.setMessage(getString(R.string.str_dlt_que) + events.eventName)
+            .setCancelable(false)
+            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
+                viewModel.delete(events)
+                dialog.cancel()
+
+
+            })
+            .setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->
+                dialog.cancel()
+            })
+
+        val alert = dialogBuilder.create()
+        alert.setTitle("AlertDialogExample")
+        alert.show()
         return true
     }
 

@@ -11,11 +11,14 @@ class EventRepository(private val eventDao: EventDao) {
         eventDao.insertEvent(events)
     }
 
+
     fun updateEvent(events: Events) {
         eventDao.updateEvent(events)
     }
 
     fun deleteEvent(events: Events) {
         eventDao.deleteEvent(events)
+    }
+    fun selectedEvent(events: Events) {
     }
 }

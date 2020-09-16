@@ -18,4 +18,12 @@
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="done">Wait is over!</string>
+    <string name="str_dlt">Delete </string>
+    <string name="str_dlt_que">Are you sure want to delete  </string>
+    <string name="title_activity_pager">PagerActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="empty">Empty</string>
+    <string name="yourlist">Your Event List is</string>
+
 </resources>

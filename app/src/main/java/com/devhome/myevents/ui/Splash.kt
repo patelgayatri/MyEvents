@@ -1,4 +1,4 @@
-package com.devhome.myevents.view.activities
+package com.devhome.myevents.ui
 
 import android.content.Intent
 import android.os.Bundle

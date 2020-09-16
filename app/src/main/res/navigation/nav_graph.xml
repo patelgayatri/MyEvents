@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/AllEventFragment"
-        android:name="com.devhome.myevents.view.fragments.AllEventsFragment"
+        android:name="com.devhome.myevents.ui.events.AllEventsFragment"
         android:label="@string/all_events_fragment_label"
         tools:layout="@layout/fragment_allevent">
 
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/AddEventFragment"
-        android:name="com.devhome.myevents.view.fragments.AddEventFragment"
+        android:name="com.devhome.myevents.ui.eventDetail.AddEventFragment"
         android:label="@string/add_event_fragment_label"
         tools:layout="@layout/fragment_add_event">
 

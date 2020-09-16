@@ -1,4 +1,4 @@
-package com.devhome.myevents.view.fragments
+package com.devhome.myevents.ui.eventDetail
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,7 +15,7 @@ import androidx.lifecycle.Observer
 import com.devhome.myevents.R
 import com.devhome.myevents.data.entity.Events
 import com.devhome.myevents.utils.saveDateFormat
-import com.devhome.myevents.viewmodel.AllEventsViewModel
+import com.devhome.myevents.ui.events.AllEventsViewModel
 import kotlinx.android.synthetic.main.fragment_add_event.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,7 +29,7 @@ class AddEventFragment : Fragment() {
     private var day: Int = 0
     private lateinit var eventData: Events
     private var countDownTimer: CountDownTimer? = null
-    private var TAG = "====="
+    private var TAG = "AddEventFragment"
     private val viewModel: AllEventsViewModel by viewModels()
 
 
@@ -41,11 +40,20 @@ class AddEventFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_add_event, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause: ")
+        countDownTimer?.cancel()
+    }
+
+    override fun onResume() {
+        super.onResume()
         initializeData()
+        clickEvent()
+    }
 
+    private fun clickEvent() {
         eventDate.setOnClickListener {
             datePickerDialogue()
         }
@@ -53,17 +61,9 @@ class AddEventFragment : Fragment() {
         eventTime.setOnClickListener {
             timePickerDialogue()
         }
-        view.findViewById<Button>(R.id.add_btn).setOnClickListener {
-
+        add_btn.setOnClickListener {
             insertData()
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG, "onPause: ")
-        countDownTimer?.cancel()
-
     }
 
     private fun timePickerDialogue() {
@@ -89,7 +89,7 @@ class AddEventFragment : Fragment() {
 
         val dpd = DatePickerDialog(
             this.requireActivity(),
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            { view, year, monthOfYear, dayOfMonth ->
                 cal.set(year, monthOfYear, dayOfMonth, 0, 0, 0)
                 val dateString = saveDateFormat.format(cal.time)
                 eventDate.setText(dateString)
@@ -106,7 +106,6 @@ class AddEventFragment : Fragment() {
     private fun initializeData() {
         when {
             arguments != null -> {
-                headerDetail.visibility = View.GONE
                 viewLinlable.visibility = View.VISIBLE
                 viewLin.visibility = View.VISIBLE
                 eventData = arguments?.getSerializable("event") as Events
@@ -119,6 +118,11 @@ class AddEventFragment : Fragment() {
                     setCounter(it[pos!!])
                 })
             }
+            else -> {
+                eventDaysLable.visibility = View.GONE
+                eventDays.text = getString(R.string.add_event)
+            }
+
         }
         cal = Calendar.getInstance()
         year = cal.get(Calendar.YEAR)
@@ -164,6 +168,7 @@ class AddEventFragment : Fragment() {
             else -> true
         }
     }
+
 
     private fun setCounter(eventData: Events) {
         val currentTime = Calendar.getInstance().time
@@ -214,10 +219,9 @@ class AddEventFragment : Fragment() {
             }
 
             override fun onFinish() {
-                headerDetail.visibility = View.VISIBLE
                 viewLinlable.visibility = View.GONE
                 viewLin.visibility = View.GONE
-                headerDetail.text = getString(R.string.done)
+                eventDays.text = getString(R.string.done)
             }
         }.start()
     }

@@ -1,4 +1,4 @@
-package com.devhome.myevents.view.adapters
+package com.devhome.myevents.ui.events
 
 import android.view.LayoutInflater
 import android.view.View
