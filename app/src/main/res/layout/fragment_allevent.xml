@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/contentpadding"
@@ -65,7 +66,7 @@
             android:layout_marginEnd="@dimen/normal_margin"
             android:layout_marginBottom="@dimen/normal_margin"
             android:focusable="false"
-            android:src="@drawable/ic_baseline_add_24" />
+            android:src="@drawable/icon_fab" />
     </RelativeLayout>
 
 </LinearLayout>

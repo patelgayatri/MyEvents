@@ -1,8 +1,10 @@
 package com.devhome.myevents.ui.events
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.devhome.myevents.R
 import com.devhome.myevents.data.entity.Events
@@ -14,16 +16,17 @@ import java.util.*
 class EventsAdapter(private val listener: Listener) :
     RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
 
-     private var eventList= emptyList<Events>()
+    private var eventList = emptyList<Events>()
+     var colorList = arrayOf("#4CAF50", "#FFC107","#673AB7","#E91E63")
 
     interface Listener {
         fun onItemClick(events: Events, position: Int)
-        fun onLongitemClick(events: Events):Boolean
+        fun onLongitemClick(events: Events): Boolean
     }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(eventList[position], listener, position)
+        holder.bind(eventList[position],colorList, listener, position)
     }
 
     override fun getItemCount(): Int = eventList.size
@@ -35,23 +38,29 @@ class EventsAdapter(private val listener: Listener) :
 
         return ViewHolder(view)
     }
-    internal fun setEvents(events:  List<Events>) {
+
+    internal fun setEvents(events: List<Events>) {
         this.eventList = events
         notifyDataSetChanged()
     }
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(
             events: Events,
+            colorList: Array<String>,
             listener: Listener,
             position: Int
         ) {
-
+            var card=itemView.findViewById<CardView>(R.id.card)
             itemView.name_txt.text = events.eventName
             itemView.date_txt.text = events.eventDate
             itemView.time_txt.text = events.eventTime
+           // itemView.day_txt.setBackgroundColor(Color.parseColor(colorList[position % 3]))
+            card.setCardBackgroundColor(Color.parseColor(colorList[position % 3]))
+
             setCounterData(events)
-            itemView.setOnClickListener { listener.onItemClick(events,position) }
+            itemView.setOnClickListener { listener.onItemClick(events, position) }
             itemView.setOnLongClickListener {
                 listener.onLongitemClick(events)
             }
@@ -73,11 +82,10 @@ class EventsAdapter(private val listener: Listener) :
                 itemView.date_txt.text = d
 
                 val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-                val timeStr=timeFormat.parse(eventData.eventTime)
+                val timeStr = timeFormat.parse(eventData.eventTime)
                 val timeNewFormat = SimpleDateFormat("hh:mm a", Locale.US)
-                val timeNewStr=timeNewFormat.format(timeStr)
-                itemView.time_txt.text=timeNewStr
-
+                val timeNewStr = timeNewFormat.format(timeStr)
+                itemView.time_txt.text = timeNewStr
 
 
             } catch (e: Exception) {

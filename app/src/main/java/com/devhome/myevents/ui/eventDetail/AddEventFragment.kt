@@ -9,13 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.devhome.myevents.R
 import com.devhome.myevents.data.entity.Events
-import com.devhome.myevents.utils.saveDateFormat
 import com.devhome.myevents.ui.events.AllEventsViewModel
+import com.devhome.myevents.utils.saveDateFormat
 import kotlinx.android.synthetic.main.fragment_add_event.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,6 +38,7 @@ class AddEventFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as AppCompatActivity?)!!.supportActionBar?.hide()
         return inflater.inflate(R.layout.fragment_add_event, container, false)
     }
 

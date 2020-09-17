@@ -20,21 +20,30 @@ class PagerFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_pager, container, false)
         val onBoardingImg = arrayOf(
-            R.drawable.avtar2
+            R.drawable.icon_event,
+            R.drawable.icon_date,
+            R.drawable.icon_time
         )
         val mainText =
-            arrayOf("Create Event", "View Events","Get Notified")
+            arrayOf("Create Event", "View Events", "Get Notified")
         val subText =
-            arrayOf("Create your event with name, date and time", "See your upcoming events list","Get Notified by receiving notification")
+            arrayOf(
+                "Create your event with name, date and time",
+                "See your upcoming events list",
+                "Get Notified by receiving notification"
+            )
         var fragPos = arguments?.getInt(ARG_SECTION_NUMBER)
-       root.main_txt.text = mainText[fragPos!!]
-       root.sub_txt.text = subText[fragPos]
-//        root.imageView.setImageDrawable(
-//            ContextCompat.getDrawable(
-//                activity?.applicationContext!!, // Context
-//                onBoardingImg[0] // Drawable
-//            )
-//        )
+        root.main_txt.text = mainText[fragPos!!]
+        root.sub_txt.text = subText[fragPos]
+        root.imageView.setImageDrawable(
+            ContextCompat.getDrawable(
+                activity?.applicationContext!!, // Context
+                onBoardingImg[fragPos] // Drawable
+            )
+        )
+
+        root.imageView.setColorFilter(ContextCompat.getColor(requireActivity(), R.color.colorPrimary), android.graphics.PorterDuff.Mode.SRC_IN);
+
         return root
     }
 
