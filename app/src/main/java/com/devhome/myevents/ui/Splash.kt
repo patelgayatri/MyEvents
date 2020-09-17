@@ -1,11 +1,13 @@
 package com.devhome.myevents.ui
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.devhome.myevents.R
 import kotlinx.android.synthetic.main.activity_splash.*
 
@@ -17,7 +19,7 @@ class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
+        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.color3));
         val animation: Animation = AnimationUtils.loadAnimation(
             applicationContext,
             R.anim.zoom_in

@@ -2,10 +2,10 @@ package com.devhome.myevents.ui.events
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -18,6 +18,7 @@ import com.devhome.myevents.R
 import com.devhome.myevents.data.entity.Events
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_allevent.*
+
 
 class AllEventsFragment : Fragment(), EventsAdapter.Listener {
 

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import com.devhome.myevents.R
 import com.devhome.myevents.ui.pager.SectionsPagerAdapter
@@ -21,8 +22,8 @@ class PagerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // setAnimation()
-
         setContentView(R.layout.activity_pager)
+        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.white));
 
         indicators = arrayOf(
             findViewById<View>(R.id.intro_indicator_0) as ImageView,

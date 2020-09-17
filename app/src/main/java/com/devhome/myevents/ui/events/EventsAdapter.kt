@@ -56,7 +56,6 @@ class EventsAdapter(private val listener: Listener) :
             itemView.name_txt.text = events.eventName
             itemView.date_txt.text = events.eventDate
             itemView.time_txt.text = events.eventTime
-           // itemView.day_txt.setBackgroundColor(Color.parseColor(colorList[position % 3]))
             card.setCardBackgroundColor(Color.parseColor(colorList[position % 3]))
 
             setCounterData(events)
