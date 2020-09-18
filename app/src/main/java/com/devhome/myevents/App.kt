@@ -1,7 +1,15 @@
 package com.devhome.myevents
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import android.content.SharedPreferences
+import androidx.preference.PreferenceManager
 
-@HiltAndroidApp
-class App:Application()
+lateinit var Prefs: SharedPreferences
+
+class App:Application(){
+
+    override fun onCreate() {
+        super.onCreate()
+        Prefs= PreferenceManager.getDefaultSharedPreferences(this)
+    }
+}

@@ -8,6 +8,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.devhome.myevents.Prefs
 import com.devhome.myevents.R
 import kotlinx.android.synthetic.main.activity_splash.*
 
@@ -20,6 +21,8 @@ class Splash : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.color3));
+
+        var firstTime = Prefs.getBoolean("first_time", false)
         val animation: Animation = AnimationUtils.loadAnimation(
             applicationContext,
             R.anim.zoom_in
@@ -29,7 +32,11 @@ class Splash : AppCompatActivity() {
 
         Handler().postDelayed({
 
-            val intent=Intent(this, PagerActivity::class.java)
+            val intent: Intent = if (firstTime)
+                Intent(this, PagerActivity::class.java)
+            else
+                Intent(this, MainActivity::class.java)
+
             startActivity(intent)
             finish()
 

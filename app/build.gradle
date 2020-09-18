@@ -80,6 +80,10 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.28-alpha"
     kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
 
+    //sharedPref
+    implementation 'androidx.preference:preference:1.1.1'
+
+
     //testing
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
