@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.devhome.myevents.R
 import com.devhome.myevents.data.entity.Events
 import com.devhome.myevents.utils.displayDateFormat
+import com.devhome.myevents.utils.saveDateFormat
+import kotlinx.android.synthetic.main.fragment_add_event.*
 import kotlinx.android.synthetic.main.raw_dashboard.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,7 +19,7 @@ class EventsAdapter(private val listener: Listener) :
     RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
 
     private var eventList = emptyList<Events>()
-     var colorList = arrayOf("#4CAF50", "#FFC107","#673AB7","#E91E63")
+    var colorList = arrayOf("#4CAF50", "#FFC107", "#673AB7", "#E91E63")
 
     interface Listener {
         fun onItemClick(events: Events, position: Int)
@@ -26,7 +28,7 @@ class EventsAdapter(private val listener: Listener) :
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(eventList[position],colorList, listener, position)
+        holder.bind(eventList[position], colorList, listener, position)
     }
 
     override fun getItemCount(): Int = eventList.size
@@ -52,7 +54,7 @@ class EventsAdapter(private val listener: Listener) :
             listener: Listener,
             position: Int
         ) {
-            var card=itemView.findViewById<CardView>(R.id.card)
+            var card = itemView.findViewById<CardView>(R.id.card)
             itemView.name_txt.text = events.eventName
             itemView.date_txt.text = events.eventDate
             itemView.time_txt.text = events.eventTime
@@ -73,9 +75,15 @@ class EventsAdapter(private val listener: Listener) :
                 val endDateDay = eventData.eventDate + " " + eventData.eventTime
                 val format1 = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
                 val endDate = format1.parse(endDateDay)
+                val sameDate = saveDateFormat.format(currentTime)
+
                 val difference = (endDate.time / (24 * 60 * 60 * 1000)
                         - (currentTime.time / (24 * 60 * 60 * 1000)))
-                itemView.day_txt.text = "$difference"
+                if (sameDate == eventData.eventDate) {
+                    itemView.day_txt.text = itemView.context.getString(R.string.today)
+                    itemView.daysLable.visibility = View.GONE
+                } else
+                    itemView.day_txt.text = "$difference"
 
                 val d = displayDateFormat.format(endDate)
                 itemView.date_txt.text = d

@@ -28,7 +28,12 @@ class AllEventsFragment : Fragment(), EventsAdapter.Listener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         (activity as AppCompatActivity?)!!.supportActionBar?.show()
+        val window: Window = activity?.window!!
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.navigationBarColor = Color.parseColor("#FFFFFF")
+
         val root = inflater.inflate(R.layout.fragment_allevent, container, false)
         initialize(root)
         return root
