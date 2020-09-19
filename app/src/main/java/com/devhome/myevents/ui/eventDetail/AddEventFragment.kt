@@ -40,7 +40,8 @@ class AddEventFragment : Fragment() {
         (activity as AppCompatActivity?)!!.supportActionBar?.hide()
         val window: Window = activity?.window!!
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.navigationBarColor = Color.parseColor("#673AB7")
+//        Toast.makeText(context,"Select Job Title",Toast.LENGTH_LONG).show()
+
         return inflater.inflate(R.layout.fragment_add_event, container, false)
     }
 
