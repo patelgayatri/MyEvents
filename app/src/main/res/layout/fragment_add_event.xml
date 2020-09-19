@@ -6,181 +6,187 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:card_view="http://schemas.android.com/tools"
-        android:id="@+id/card"
-        android:layout_margin="@dimen/contentpadding"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/normal_margin"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="@dimen/normal_margin"
-        app:cardUseCompatPadding="true"
-        app:contentPadding="@dimen/contentpadding"
-        card_view:cardUseCompatPadding="true">
+        android:fillViewport="true"
+        android:isScrollContainer="false">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:card_view="http://schemas.android.com/tools"
+            android:id="@+id/card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/eventDays"
-                style="@style/textCardStyleBold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/grad_background"
-                android:gravity="center"
-                android:minWidth="60dp"
-                android:padding="@dimen/normal_margin"
-                android:textColor="@color/white"
-                android:textSize="40sp" />
+            android:layout_margin="@dimen/contentpadding"
+            android:elevation="@dimen/normal_margin"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="@dimen/normal_margin"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="@dimen/contentpadding"
+            card_view:cardUseCompatPadding="true">
 
             <LinearLayout
-                android:id="@+id/viewLin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/eventDays"
+                    style="@style/textCardStyleBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/grad_background"
+                    android:gravity="center"
+                    android:minWidth="60dp"
+                    android:padding="@dimen/normal_margin"
+                    android:textColor="@color/white"
+                    android:textSize="40sp" />
 
                 <LinearLayout
+                    android:id="@+id/viewLin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/normal_margin"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/normal_margin"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/eventDaysLable"
+                            style="@style/textStyle"
+                            android:layout_width="match_parent"
+                            android:layout_margin="3dp"
+                            android:text="@string/days"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="@dimen/normal_margin"
+                        android:layout_marginRight="@dimen/normal_margin">
+
+                        <TextView
+                            android:id="@+id/eventHours"
+                            style="@style/textStyle"
+                            android:background="@drawable/grad_background"
+                            android:backgroundTint="@color/color1"
+                            android:padding="@dimen/text_padding"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_weight="0.1"
+                            android:text="@string/colon" />
+
+                        <TextView
+                            android:id="@+id/eventMins"
+                            style="@style/textStyle"
+                            android:background="@drawable/grad_background"
+                            android:backgroundTint="@color/color2"
+                            android:padding="@dimen/text_padding"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            style="@style/textStyle"
+                            android:layout_weight="0.1"
+                            android:text="@string/colon" />
+
+                        <TextView
+                            android:id="@+id/eventsecs"
+                            style="@style/textStyle"
+                            android:background="@drawable/grad_background"
+                            android:backgroundTint="@color/color3"
+                            android:padding="@dimen/text_padding"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/viewLinlable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:layout_marginRight="@dimen/normal_margin"
+                    android:layout_marginBottom="@dimen/editMargin"
+                    android:visibility="gone">
 
 
                     <TextView
-                        android:id="@+id/eventDaysLable"
                         style="@style/textStyle"
-                        android:layout_width="match_parent"
-                        android:layout_margin="3dp"
-                        android:text="@string/days"
+                        android:text="@string/hours"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:text="@string/mins"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        style="@style/textStyle"
+                        android:text="@string/secs"
                         android:textSize="15sp" />
                 </LinearLayout>
 
-                <LinearLayout
+                <EditText
+                    android:id="@+id/eventName"
+                    style="@style/editTextStyle"
+                    android:layout_marginTop="@dimen/text_padding"
+                    android:background="@drawable/border_background"
+                    android:drawableLeft="@drawable/icon_event"
+                    android:drawablePadding="@dimen/contentpadding"
+                    android:hint="@string/name"
+                    android:importantForAutofill="no"
+                    android:padding="@dimen/text_padding" />
+
+                <EditText
+                    android:id="@+id/eventDate"
+                    style="@style/editTextStyle"
+                    android:layout_marginTop="@dimen/text_padding"
+                    android:background="@drawable/border_background"
+                    android:cursorVisible="false"
+                    android:drawableLeft="@drawable/icon_date"
+                    android:drawablePadding="@dimen/contentpadding"
+                    android:focusable="false"
+                    android:hint="@string/date"
+                    android:importantForAutofill="no"
+                    android:inputType="date"
+                    android:padding="@dimen/text_padding" />
+
+                <EditText
+                    android:id="@+id/eventTime"
+                    style="@style/editTextStyle"
+                    android:layout_marginTop="@dimen/text_padding"
+                    android:layout_marginBottom="@dimen/text_padding"
+                    android:background="@drawable/border_background"
+                    android:cursorVisible="false"
+                    android:drawableLeft="@drawable/icon_time"
+                    android:drawablePadding="@dimen/contentpadding"
+                    android:focusable="false"
+                    android:hint="@string/time"
+                    android:importantForAutofill="no"
+                    android:padding="@dimen/text_padding" />
+
+                <Button
+                    android:id="@+id/add_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="@dimen/normal_margin"
-                    android:layout_marginRight="@dimen/normal_margin">
-
-                    <TextView
-                        android:id="@+id/eventHours"
-                        style="@style/textStyle"
-                        android:background="@drawable/grad_background"
-                        android:backgroundTint="@color/color1"
-                        android:padding="@dimen/text_padding"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        style="@style/textStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_weight="0.1"
-                        android:text="@string/colon" />
-
-                    <TextView
-                        android:id="@+id/eventMins"
-                        style="@style/textStyle"
-                        android:background="@drawable/grad_background"
-                        android:backgroundTint="@color/color2"
-                        android:padding="@dimen/text_padding"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        style="@style/textStyle"
-                        android:layout_weight="0.1"
-                        android:text="@string/colon" />
-
-                    <TextView
-                        android:id="@+id/eventsecs"
-                        style="@style/textStyle"
-                        android:background="@drawable/grad_background"
-                        android:backgroundTint="@color/color3"
-                        android:padding="@dimen/text_padding"
-                        android:textColor="@color/white" />
-                </LinearLayout>
+                    android:layout_margin="@dimen/editMargin"
+                    android:background="@drawable/grad_background"
+                    android:fontFamily="@font/pacifico"
+                    android:text="@string/save"
+                    android:textColor="@color/white" />
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/viewLinlable"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/normal_margin"
-                android:layout_marginRight="@dimen/normal_margin"
-                android:layout_marginBottom="@dimen/editMargin"
-                android:visibility="gone">
-
-
-                <TextView
-                    style="@style/textStyle"
-                    android:text="@string/hours"
-                    android:textSize="15sp" />
-
-                <TextView
-                    style="@style/textStyle"
-                    android:text="@string/mins"
-                    android:textSize="15sp" />
-
-                <TextView
-                    style="@style/textStyle"
-                    android:text="@string/secs"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/eventName"
-                style="@style/editTextStyle"
-                android:layout_marginTop="@dimen/text_padding"
-                android:background="@drawable/border_background"
-                android:drawableLeft="@drawable/icon_event"
-                android:drawablePadding="@dimen/contentpadding"
-                android:hint="@string/name"
-                android:importantForAutofill="no"
-                android:padding="@dimen/text_padding" />
-
-            <EditText
-                android:id="@+id/eventDate"
-                style="@style/editTextStyle"
-                android:layout_marginTop="@dimen/text_padding"
-                android:background="@drawable/border_background"
-                android:cursorVisible="false"
-                android:drawableLeft="@drawable/icon_date"
-                android:drawablePadding="@dimen/contentpadding"
-                android:focusable="false"
-                android:hint="@string/date"
-                android:importantForAutofill="no"
-                android:inputType="date"
-                android:padding="@dimen/text_padding" />
-
-            <EditText
-                android:id="@+id/eventTime"
-                style="@style/editTextStyle"
-                android:layout_marginTop="@dimen/text_padding"
-                android:layout_marginBottom="@dimen/text_padding"
-                android:background="@drawable/border_background"
-                android:cursorVisible="false"
-                android:drawableLeft="@drawable/icon_time"
-                android:drawablePadding="@dimen/contentpadding"
-                android:focusable="false"
-                android:hint="@string/time"
-                android:importantForAutofill="no"
-                android:padding="@dimen/text_padding" />
-
-            <Button
-                android:id="@+id/add_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/editMargin"
-                android:background="@drawable/grad_background"
-                android:fontFamily="@font/pacifico"
-                android:text="@string/save"
-                android:textColor="@color/white" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
 </LinearLayout>
