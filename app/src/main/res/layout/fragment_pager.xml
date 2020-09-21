@@ -18,16 +18,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/sub_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="26dp"
+        android:fontFamily="@font/averia_gruesa_libre"
         android:gravity="center"
+        android:textColor="@color/primaryDarkColor"
         android:text="name is my event sub event huvhcv hvjh jhbb"
         android:textSize="20sp"
-        style="@style/textCardStyle"
-        android:textColor="@color/color2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,14 +36,13 @@
 
     <TextView
         android:id="@+id/main_txt"
-        style="@style/textCardStyleBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:fontFamily="@font/averia_gruesa_libre"
         android:text="name is my event"
-        android:textColor="@color/color1"
         android:textSize="30sp"
+        android:textColor="@color/secondaryColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

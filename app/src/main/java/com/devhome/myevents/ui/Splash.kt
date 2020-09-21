@@ -20,9 +20,10 @@ class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.color3));
+        window.navigationBarColor=ContextCompat.getColor(this, R.color.secondaryColor)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.primaryColor)
 
-        var firstTime = Prefs.getBoolean("first_time", false)
+        var firstTime = Prefs.getBoolean("first_time", true)
         val animation: Animation = AnimationUtils.loadAnimation(
             applicationContext,
             R.anim.zoom_in

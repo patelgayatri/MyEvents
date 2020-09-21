@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.devhome.myevents.R
 import com.devhome.myevents.data.entity.Events
 import com.devhome.myevents.utils.displayDateFormat
 import com.devhome.myevents.utils.saveDateFormat
-import kotlinx.android.synthetic.main.fragment_add_event.*
 import kotlinx.android.synthetic.main.raw_dashboard.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,7 +19,7 @@ class EventsAdapter(private val listener: Listener) :
     RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
 
     private var eventList = emptyList<Events>()
-    var colorList = arrayOf("#4CAF50", "#FFC107", "#673AB7", "#E91E63")
+    var colorList = arrayOf(R.color.primaryLightColor,R.color.color2,R.color.color2)
 
     interface Listener {
         fun onItemClick(events: Events, position: Int)
@@ -50,7 +50,7 @@ class EventsAdapter(private val listener: Listener) :
 
         fun bind(
             events: Events,
-            colorList: Array<String>,
+            colorList: Array<Int>,
             listener: Listener,
             position: Int
         ) {
@@ -58,7 +58,9 @@ class EventsAdapter(private val listener: Listener) :
             itemView.name_txt.text = events.eventName
             itemView.date_txt.text = events.eventDate
             itemView.time_txt.text = events.eventTime
-            card.setCardBackgroundColor(Color.parseColor(colorList[position % 3]))
+          //  card.setCardBackgroundColor(Color.parseColor(colorList[position % 2]))
+
+            //card.setCardBackgroundColor(ContextCompat.getColor(itemView.context, colorList[position % 1]));
 
             setCounterData(events)
             itemView.setOnClickListener { listener.onItemClick(events, position) }

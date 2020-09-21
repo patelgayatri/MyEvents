@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -32,7 +33,9 @@ class AllEventsFragment : Fragment(), EventsAdapter.Listener {
         (activity as AppCompatActivity?)!!.supportActionBar?.show()
         val window: Window = activity?.window!!
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.navigationBarColor = Color.parseColor("#FFFFFF")
+        window.navigationBarColor = ContextCompat.getColor(window.context, R.color.color2)
+        window.statusBarColor = ContextCompat.getColor(window.context, R.color.primaryDarkColor)
+
 
         val root = inflater.inflate(R.layout.fragment_allevent, container, false)
         initialize(root)

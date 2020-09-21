@@ -1,14 +1,19 @@
 package com.devhome.myevents.ui.eventDetail
 
 import android.app.DatePickerDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.TimePickerDialog
-import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -16,6 +21,7 @@ import com.devhome.myevents.R
 import com.devhome.myevents.data.entity.Events
 import com.devhome.myevents.ui.events.AllEventsViewModel
 import com.devhome.myevents.utils.saveDateFormat
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_add_event.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,16 +37,19 @@ class AddEventFragment : Fragment() {
     private var countDownTimer: CountDownTimer? = null
     private var TAG = "AddEventFragment"
     private val viewModel: AllEventsViewModel by viewModels()
+    lateinit var textInputLayout: TextInputLayout
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         (activity as AppCompatActivity?)!!.supportActionBar?.hide()
         val window: Window = activity?.window!!
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-//        Toast.makeText(context,"Select Job Title",Toast.LENGTH_LONG).show()
+        window.navigationBarColor = ContextCompat.getColor(window.context, R.color.color2)
+        window.statusBarColor = ContextCompat.getColor(window.context, R.color.color2)
 
         return inflater.inflate(R.layout.fragment_add_event, container, false)
     }
@@ -67,7 +76,8 @@ class AddEventFragment : Fragment() {
             timePickerDialogue()
         }
         add_btn.setOnClickListener {
-            insertData()
+            //insertData()
+            createNotificationChannel(NotificationCompat.PRIORITY_DEFAULT, true)
         }
     }
 
@@ -109,9 +119,10 @@ class AddEventFragment : Fragment() {
     }
 
     private fun initializeData() {
+        textInputLayout = view?.findViewById(R.id.eventDaysLable) as TextInputLayout
+
         when {
             arguments != null -> {
-                viewLinlable.visibility = View.VISIBLE
                 viewLin.visibility = View.VISIBLE
                 eventData = arguments?.getSerializable("event") as Events
                 val pos = arguments?.getInt("pos")
@@ -124,8 +135,7 @@ class AddEventFragment : Fragment() {
                 })
             }
             else -> {
-                eventDaysLable.visibility = View.GONE
-                eventDays.text = getString(R.string.add_event)
+                eventDays.setText(getString(R.string.add_event))
             }
 
         }
@@ -133,6 +143,7 @@ class AddEventFragment : Fragment() {
         year = cal.get(Calendar.YEAR)
         month = cal.get(Calendar.MONTH)
         day = cal.get(Calendar.DAY_OF_MONTH)
+
     }
 
     private fun insertData() {
@@ -153,6 +164,38 @@ class AddEventFragment : Fragment() {
             countDownTimer?.cancel()
             activity?.onBackPressed()
             //findNavController().navigate(R.id.action_AddEventFragment_to_AllEventFragment)
+        }
+    }
+
+    fun createNotificationChannel(
+        importance: Int,
+        showBadge: Boolean
+    ) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            // 2
+            val channelId = "${requireActivity().packageName}-Event"
+            val channel = NotificationChannel(channelId, "event", importance)
+            channel.description = "description"
+            channel.setShowBadge(showBadge)
+
+            // 3
+            val notificationManager =
+                requireActivity().getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+
+            val builder = NotificationCompat.Builder(requireActivity(), channelId)
+                .setSmallIcon(R.drawable.icon_event)
+                .setContentTitle("My notification")
+                .setContentText("Hello World!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                // Set the intent that will fire when the user taps the notification
+                .setAutoCancel(true)
+
+            with(NotificationManagerCompat.from(requireActivity())) {
+                // notificationId is a unique int for each notification that you must define
+                notify(10, builder.build())
+            }
         }
     }
 
@@ -206,27 +249,24 @@ class AddEventFragment : Fragment() {
                 val elapsedSeconds = diff / secondsInMilli
                 when {
                     sameDate == eventData.eventDate -> {
-                        eventDays.text = getString(R.string.today)
-                        eventDaysLable.visibility = View.GONE
+                        eventDays.setText(getString(R.string.today))
                     }
                     elapsedDays == 0L -> {
-                        eventDays.text = getString(R.string.tomorrow)
-                        eventDaysLable.visibility = View.GONE
+                        eventDays.setText(getString(R.string.tomorrow))
                     }
                     else -> {
-                        eventDays.text = "$elapsedDays"
-                        eventDaysLable.visibility = View.VISIBLE
+                        eventDays.setText(elapsedDays.toString())
+                        eventDaysLable.hint = "Days"
                     }
                 }
-                eventHours.text = "$elapsedHours"
-                eventMins.text = "$elapsedMinutes"
-                eventsecs.text = "$elapsedSeconds"
+                horstText.setText("$elapsedHours")
+                eventMins.setText("$elapsedMinutes")
+                eventsecs.setText("$elapsedSeconds")
             }
 
             override fun onFinish() {
-                viewLinlable.visibility = View.GONE
                 viewLin.visibility = View.GONE
-                eventDays.text = getString(R.string.done)
+                eventDays.setText(getString(R.string.done))
             }
         }.start()
     }

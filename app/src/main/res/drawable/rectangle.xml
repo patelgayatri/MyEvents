@@ -3,7 +3,7 @@
     android:shape="rectangle">
     <corners android:radius="10dp" />
     <!-- The fill color -->
-    <solid android:color="@color/colorAccent" />
+    <solid android:color="@color/secondaryColor" />
     <!-- Just to add a border -->
 
 </shape>

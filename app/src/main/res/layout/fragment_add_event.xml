@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/color2"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -32,17 +32,27 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/eventDays"
-                    style="@style/textCardStyleBold"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/eventDaysLable"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/grad_background"
-                    android:gravity="center"
-                    android:minWidth="60dp"
-                    android:padding="@dimen/normal_margin"
-                    android:textColor="@color/white"
-                    android:textSize="40sp" />
+                    android:layout_margin="@dimen/normal_margin">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/eventDays"
+                        style="@style/lableStyle"
+                        android:layout_width="wrap_content"
+                        android:minWidth="70dp"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:text="200"
+                        android:textColor="@color/primaryDarkColor"
+                        android:textSize="30sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <LinearLayout
                     android:id="@+id/viewLin"
@@ -54,139 +64,118 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/normal_margin"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content">
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/normal_margin"
+                            android:layout_weight="1"
+                            android:hint="@string/hours">
 
-                        <TextView
-                            android:id="@+id/eventDaysLable"
-                            style="@style/textStyle"
-                            android:layout_width="match_parent"
-                            android:layout_margin="3dp"
-                            android:text="@string/days"
-                            android:textSize="15sp" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/horstText"
+                                style="@style/lableStyle"
+                                android:clickable="false"
+                                android:cursorVisible="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:text="200" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/normal_margin"
+                            android:layout_weight="1"
+                            android:hint="@string/mins">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/eventMins"
+                                style="@style/lableStyle"
+                                android:clickable="false"
+                                android:cursorVisible="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:text="20" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/normal_margin"
+                            android:layout_weight="1"
+                            android:hint="@string/secs">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/eventsecs"
+                                style="@style/lableStyle"
+                                android:clickable="false"
+                                android:cursorVisible="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:text="20" />
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        android:layout_marginLeft="@dimen/normal_margin"
-                        android:layout_marginRight="@dimen/normal_margin">
-
-                        <TextView
-                            android:id="@+id/eventHours"
-                            style="@style/textStyle"
-                            android:background="@drawable/grad_background"
-                            android:backgroundTint="@color/color1"
-                            android:padding="@dimen/text_padding"
-                            android:textColor="@color/white" />
-
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_weight="0.1"
-                            android:text="@string/colon" />
-
-                        <TextView
-                            android:id="@+id/eventMins"
-                            style="@style/textStyle"
-                            android:background="@drawable/grad_background"
-                            android:backgroundTint="@color/color2"
-                            android:padding="@dimen/text_padding"
-                            android:textColor="@color/white" />
-
-                        <TextView
-                            style="@style/textStyle"
-                            android:layout_weight="0.1"
-                            android:text="@string/colon" />
-
-                        <TextView
-                            android:id="@+id/eventsecs"
-                            style="@style/textStyle"
-                            android:background="@drawable/grad_background"
-                            android:backgroundTint="@color/color3"
-                            android:padding="@dimen/text_padding"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/viewLinlable"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/normal_margin"
-                    android:layout_marginRight="@dimen/normal_margin"
-                    android:layout_marginBottom="@dimen/editMargin"
-                    android:visibility="gone">
+                    android:layout_margin="@dimen/normal_margin"
+                    android:hint="@string/name">
 
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/eventName"
+                        style="@style/editTextStyle"
+                        android:drawableLeft="@drawable/icon_event" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        style="@style/textStyle"
-                        android:text="@string/hours"
-                        android:textSize="15sp" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/normal_margin"
+                    android:hint="@string/date">
 
-                    <TextView
-                        style="@style/textStyle"
-                        android:text="@string/mins"
-                        android:textSize="15sp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/eventDate"
+                        style="@style/editTextStyle"
+                        android:cursorVisible="false"
+                        android:drawableLeft="@drawable/icon_event"
+                        android:focusable="false"
+                        android:importantForAutofill="no" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        style="@style/textStyle"
-                        android:text="@string/secs"
-                        android:textSize="15sp" />
-                </LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/normal_margin"
+                    android:hint="@string/time">
 
-                <EditText
-                    android:id="@+id/eventName"
-                    style="@style/editTextStyle"
-                    android:layout_marginTop="@dimen/text_padding"
-                    android:background="@drawable/border_background"
-                    android:drawableLeft="@drawable/icon_event"
-                    android:drawablePadding="@dimen/contentpadding"
-                    android:hint="@string/name"
-                    android:importantForAutofill="no"
-                    android:padding="@dimen/text_padding" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/eventTime"
+                        style="@style/editTextStyle"
+                        android:cursorVisible="false"
+                        android:drawableLeft="@drawable/icon_event"
+                        android:focusable="false" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/eventDate"
-                    style="@style/editTextStyle"
-                    android:layout_marginTop="@dimen/text_padding"
-                    android:background="@drawable/border_background"
-                    android:cursorVisible="false"
-                    android:drawableLeft="@drawable/icon_date"
-                    android:drawablePadding="@dimen/contentpadding"
-                    android:focusable="false"
-                    android:hint="@string/date"
-                    android:importantForAutofill="no"
-                    android:inputType="date"
-                    android:padding="@dimen/text_padding" />
-
-                <EditText
-                    android:id="@+id/eventTime"
-                    style="@style/editTextStyle"
-                    android:layout_marginTop="@dimen/text_padding"
-                    android:layout_marginBottom="@dimen/text_padding"
-                    android:background="@drawable/border_background"
-                    android:cursorVisible="false"
-                    android:drawableLeft="@drawable/icon_time"
-                    android:drawablePadding="@dimen/contentpadding"
-                    android:focusable="false"
-                    android:hint="@string/time"
-                    android:importantForAutofill="no"
-                    android:padding="@dimen/text_padding" />
-
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/add_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/editMargin"
-                    android:background="@drawable/grad_background"
+                    android:layout_margin="@dimen/normal_margin"
                     android:fontFamily="@font/pacifico"
-                    android:text="@string/save"
-                    android:textColor="@color/white" />
+                    android:padding="@dimen/contentpadding"
+                    android:text="@string/save" />
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </ScrollView>

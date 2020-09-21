@@ -42,7 +42,7 @@ class PagerFragment : Fragment() {
             )
         )
 
-        root.imageView.setColorFilter(ContextCompat.getColor(requireActivity(), R.color.colorPrimary), android.graphics.PorterDuff.Mode.SRC_IN);
+        root.imageView.setColorFilter(ContextCompat.getColor(requireActivity(), R.color.primaryColor), android.graphics.PorterDuff.Mode.SRC_IN);
 
         return root
     }

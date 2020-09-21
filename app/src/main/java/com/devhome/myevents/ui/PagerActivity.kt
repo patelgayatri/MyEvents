@@ -23,7 +23,6 @@ class PagerActivity : AppCompatActivity(), View.OnClickListener {
     private var currentPage = 0
     private lateinit var indicators: Array<ImageView>
     private lateinit var viewPager: ViewPager
-    private val sharedPreferences = "eventSharedPreference"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,13 +30,6 @@ class PagerActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_pager)
 
         window.navigationBarColor = ContextCompat.getColor(this, R.color.white)
-//        val sharedPreferences: SharedPreferences =
-//            this.getSharedPreferences(sharedPreferences, Context.MODE_PRIVATE)
-//        val editor: SharedPreferences.Editor = sharedPreferences.edit()
-//        editor.putBoolean("first_tiem", false)
-//
-//        editor.apply()
-//        editor.commit()
         Prefs.putAny("first_time",false)
 
         setViewPager()
