@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color2"
+    android:background="@drawable/add_background"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -23,7 +23,6 @@
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="@dimen/normal_margin"
             app:cardUseCompatPadding="true"
-            app:contentPadding="@dimen/contentpadding"
             card_view:cardUseCompatPadding="true">
 
             <LinearLayout
@@ -37,17 +36,17 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/normal_margin">
+                    android:layout_margin="@dimen/contentpadding">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/eventDays"
                         style="@style/lableStyle"
                         android:layout_width="wrap_content"
-                        android:minWidth="70dp"
                         android:clickable="false"
                         android:cursorVisible="false"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
+                        android:minWidth="70dp"
                         android:text="200"
                         android:textColor="@color/primaryDarkColor"
                         android:textSize="30sp" />
@@ -148,8 +147,7 @@
                         style="@style/editTextStyle"
                         android:cursorVisible="false"
                         android:drawableLeft="@drawable/icon_event"
-                        android:focusable="false"
-                        android:importantForAutofill="no" />
+                        android:focusable="false" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout

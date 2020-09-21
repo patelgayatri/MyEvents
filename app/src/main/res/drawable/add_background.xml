@@ -3,9 +3,8 @@
     android:shape="rectangle" >
     <!-- The fill color -->
     <solid android:color="@color/primaryDarkColor"  />
-    <stroke android:color="@color/secondaryColor"/>
     <!-- Just to add a border -->
 
-    <corners android:bottomRightRadius="300dp" android:topLeftRadius="300dp" />
+    <corners android:bottomRightRadius="100dp" android:topLeftRadius="100dp" />
 
 </shape>

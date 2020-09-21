@@ -34,14 +34,16 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/averia_gruesa_libre"
                 android:text="@string/yourlist"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                style="@style/lableStyle"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/averia_gruesa_libre"
                 android:text="@string/empty"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                style="@style/textCardStyle"/>
         </LinearLayout>
 
 

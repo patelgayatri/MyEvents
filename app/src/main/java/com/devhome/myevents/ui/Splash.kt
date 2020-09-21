@@ -11,6 +11,9 @@ import androidx.core.content.ContextCompat
 import com.devhome.myevents.Prefs
 import com.devhome.myevents.R
 import kotlinx.android.synthetic.main.activity_splash.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class Splash : AppCompatActivity() {
@@ -20,8 +23,8 @@ class Splash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        window.navigationBarColor=ContextCompat.getColor(this, R.color.secondaryColor)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.primaryColor)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.white)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
 
         var firstTime = Prefs.getBoolean("first_time", true)
         val animation: Animation = AnimationUtils.loadAnimation(
@@ -30,17 +33,16 @@ class Splash : AppCompatActivity() {
         )
         splashText.startAnimation(animation)
 
+        val intent: Intent = if (firstTime)
+            Intent(this, PagerActivity::class.java)
+        else
+            Intent(this, MainActivity::class.java)
 
-        Handler().postDelayed({
-
-            val intent: Intent = if (firstTime)
-                Intent(this, PagerActivity::class.java)
-            else
-                Intent(this, MainActivity::class.java)
-
+        GlobalScope.launch { // launch a new coroutine and keep a reference to its Job
+            delay(3000L)
             startActivity(intent)
             finish()
+        }
 
-        }, timeOut)
     }
 }

@@ -6,10 +6,12 @@ import androidx.preference.PreferenceManager
 
 lateinit var Prefs: SharedPreferences
 
-class App:Application(){
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Prefs= PreferenceManager.getDefaultSharedPreferences(this)
+        Prefs = PreferenceManager.getDefaultSharedPreferences(this)
+
+
     }
 }

@@ -60,8 +60,6 @@ class EventsAdapter(private val listener: Listener) :
             itemView.time_txt.text = events.eventTime
           //  card.setCardBackgroundColor(Color.parseColor(colorList[position % 2]))
 
-            //card.setCardBackgroundColor(ContextCompat.getColor(itemView.context, colorList[position % 1]));
-
             setCounterData(events)
             itemView.setOnClickListener { listener.onItemClick(events, position) }
             itemView.setOnLongClickListener {

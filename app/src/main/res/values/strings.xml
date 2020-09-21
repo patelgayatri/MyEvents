@@ -17,7 +17,7 @@
     <string name="save">Save</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
-    <string name="done">Wait is over!</string>
+    <string name="done">Wait is Over!</string>
     <string name="str_dlt">Delete </string>
     <string name="str_dlt_que">Are you sure want to delete  </string>
     <string name="title_activity_pager">PagerActivity</string>

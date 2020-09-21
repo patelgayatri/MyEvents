@@ -54,19 +54,6 @@ class AddEventFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_add_event, container, false)
     }
 
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG, "onPause: ")
-        countDownTimer?.cancel()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        initializeData()
-        clickEvent()
-    }
-
     private fun clickEvent() {
         eventDate.setOnClickListener {
             datePickerDialogue()
@@ -76,8 +63,8 @@ class AddEventFragment : Fragment() {
             timePickerDialogue()
         }
         add_btn.setOnClickListener {
-            //insertData()
-            createNotificationChannel(NotificationCompat.PRIORITY_DEFAULT, true)
+            insertData()
+           // createNotificationChannel()
         }
     }
 
@@ -117,7 +104,18 @@ class AddEventFragment : Fragment() {
         dpd.show()
 
     }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause: ")
+        countDownTimer?.cancel()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        initializeData()
+        clickEvent()
+
+    }
     private fun initializeData() {
         textInputLayout = view?.findViewById(R.id.eventDaysLable) as TextInputLayout
 
@@ -163,39 +161,6 @@ class AddEventFragment : Fragment() {
             }
             countDownTimer?.cancel()
             activity?.onBackPressed()
-            //findNavController().navigate(R.id.action_AddEventFragment_to_AllEventFragment)
-        }
-    }
-
-    fun createNotificationChannel(
-        importance: Int,
-        showBadge: Boolean
-    ) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            // 2
-            val channelId = "${requireActivity().packageName}-Event"
-            val channel = NotificationChannel(channelId, "event", importance)
-            channel.description = "description"
-            channel.setShowBadge(showBadge)
-
-            // 3
-            val notificationManager =
-                requireActivity().getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
-
-            val builder = NotificationCompat.Builder(requireActivity(), channelId)
-                .setSmallIcon(R.drawable.icon_event)
-                .setContentTitle("My notification")
-                .setContentText("Hello World!")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                // Set the intent that will fire when the user taps the notification
-                .setAutoCancel(true)
-
-            with(NotificationManagerCompat.from(requireActivity())) {
-                // notificationId is a unique int for each notification that you must define
-                notify(10, builder.build())
-            }
         }
     }
 

@@ -2,8 +2,7 @@ package com.devhome.myevents.ui.events
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.graphics.Color
-import android.os.Build
+
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
