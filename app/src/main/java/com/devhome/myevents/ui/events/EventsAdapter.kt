@@ -19,7 +19,6 @@ class EventsAdapter(private val listener: Listener) :
     RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
 
     private var eventList = emptyList<Events>()
-    var colorList = arrayOf(R.color.primaryLightColor,R.color.color2,R.color.color2)
 
     interface Listener {
         fun onItemClick(events: Events, position: Int)
@@ -28,7 +27,7 @@ class EventsAdapter(private val listener: Listener) :
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(eventList[position], colorList, listener, position)
+        holder.bind(eventList[position], listener, position)
     }
 
     override fun getItemCount(): Int = eventList.size
@@ -50,7 +49,6 @@ class EventsAdapter(private val listener: Listener) :
 
         fun bind(
             events: Events,
-            colorList: Array<Int>,
             listener: Listener,
             position: Int
         ) {
@@ -58,7 +56,6 @@ class EventsAdapter(private val listener: Listener) :
             itemView.name_txt.text = events.eventName
             itemView.date_txt.text = events.eventDate
             itemView.time_txt.text = events.eventTime
-          //  card.setCardBackgroundColor(Color.parseColor(colorList[position % 2]))
 
             setCounterData(events)
             itemView.setOnClickListener { listener.onItemClick(events, position) }
@@ -96,7 +93,6 @@ class EventsAdapter(private val listener: Listener) :
 
 
             } catch (e: Exception) {
-                //java.text.ParseException: Unparseable date: Geting error
                 println("Excep$e")
             }
         }

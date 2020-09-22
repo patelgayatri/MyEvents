@@ -18,15 +18,15 @@ import kotlinx.coroutines.launch
 
 class Splash : AppCompatActivity() {
 
-    private val timeOut: Long = 3000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
         window.navigationBarColor = ContextCompat.getColor(this, R.color.white)
         window.statusBarColor = ContextCompat.getColor(this, R.color.white)
 
-        var firstTime = Prefs.getBoolean("first_time", true)
+        val firstTime = Prefs.getBoolean("first_time", true)
         val animation: Animation = AnimationUtils.loadAnimation(
             applicationContext,
             R.anim.zoom_in
@@ -38,7 +38,7 @@ class Splash : AppCompatActivity() {
         else
             Intent(this, MainActivity::class.java)
 
-        GlobalScope.launch { // launch a new coroutine and keep a reference to its Job
+        GlobalScope.launch {
             delay(3000L)
             startActivity(intent)
             finish()

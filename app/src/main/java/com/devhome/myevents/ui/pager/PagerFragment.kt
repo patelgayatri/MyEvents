@@ -37,12 +37,17 @@ class PagerFragment : Fragment() {
         root.sub_txt.text = subText[fragPos]
         root.imageView.setImageDrawable(
             ContextCompat.getDrawable(
-                activity?.applicationContext!!, // Context
-                onBoardingImg[fragPos] // Drawable
+                activity?.applicationContext!!,
+                onBoardingImg[fragPos]
             )
         )
 
-        root.imageView.setColorFilter(ContextCompat.getColor(requireActivity(), R.color.primaryColor), android.graphics.PorterDuff.Mode.SRC_IN);
+        root.imageView.setColorFilter(
+            ContextCompat.getColor(
+                requireActivity(),
+                R.color.primaryColor
+            ), android.graphics.PorterDuff.Mode.SRC_IN
+        );
 
         return root
     }

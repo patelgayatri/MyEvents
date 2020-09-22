@@ -191,7 +191,7 @@ class AddEventFragment : Fragment() {
         val sameDate = saveDateFormat.format(currentTime)
 
 
-        //milliseconds
+
         val different = endDate.time - currentTime.time
         countDownTimer = object : CountDownTimer(different, 1000) {
 

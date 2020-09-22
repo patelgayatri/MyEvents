@@ -22,5 +22,4 @@ interface EventDao {
     @Delete
      fun deleteEvent(events: Events)
 
-    //    @Query("SELECT * FROM EVENTS ORDER BY strftime('dd/MM/yyyy',event_date ) DESC")
 }
