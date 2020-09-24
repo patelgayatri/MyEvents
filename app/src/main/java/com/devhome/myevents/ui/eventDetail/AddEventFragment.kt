@@ -1,28 +1,29 @@
 package com.devhome.myevents.ui.eventDetail
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.TimePickerDialog
-import android.os.Build
+import android.content.Context.ALARM_SERVICE
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.devhome.myevents.R
 import com.devhome.myevents.data.entity.Events
+import com.devhome.myevents.notifications.ReminderBroadcast
 import com.devhome.myevents.ui.events.AllEventsViewModel
 import com.devhome.myevents.utils.saveDateFormat
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_add_event.*
+import kotlinx.coroutines.Job
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -55,6 +56,7 @@ class AddEventFragment : Fragment() {
     }
 
     private fun clickEvent() {
+
         eventDate.setOnClickListener {
             datePickerDialogue()
         }
@@ -64,7 +66,6 @@ class AddEventFragment : Fragment() {
         }
         add_btn.setOnClickListener {
             insertData()
-           // createNotificationChannel()
         }
     }
 
@@ -104,6 +105,7 @@ class AddEventFragment : Fragment() {
         dpd.show()
 
     }
+
     override fun onPause() {
         super.onPause()
         Log.d(TAG, "onPause: ")
@@ -116,6 +118,7 @@ class AddEventFragment : Fragment() {
         clickEvent()
 
     }
+
     private fun initializeData() {
         textInputLayout = view?.findViewById(R.id.eventDaysLable) as TextInputLayout
 
@@ -156,13 +159,18 @@ class AddEventFragment : Fragment() {
                     viewModel.update(event)
                 }
                 else -> {
-                    viewModel.insert(event)
+                     var nId=viewModel.addData(event)
+                    setNotification(event,0)
+
+
                 }
             }
+
             countDownTimer?.cancel()
             activity?.onBackPressed()
         }
     }
+
 
     private fun isValidate(): Boolean {
         return when {
@@ -189,7 +197,6 @@ class AddEventFragment : Fragment() {
         val format1 = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
         val endDate = format1.parse(endDateDay)
         val sameDate = saveDateFormat.format(currentTime)
-
 
 
         val different = endDate.time - currentTime.time
@@ -234,6 +241,31 @@ class AddEventFragment : Fragment() {
                 eventDays.setText(getString(R.string.done))
             }
         }.start()
+    }
+
+    private fun setNotification(eventData: Events, id: Int) {
+        println("===id="+id)
+
+        val endDateDay = eventData.eventDate + " " + eventData.eventTime
+        val format1 = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
+        val endDate = format1.parse(endDateDay)
+
+
+        val intent = Intent(activity, ReminderBroadcast::class.java)
+        val b = Bundle()
+        b.putString("eventName", eventData.eventName)
+        b.putInt("eventId", id)
+        intent.putExtras(b)
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            this.context,
+            0,
+            intent,
+            0
+        )
+        val alarmManager: AlarmManager =
+            requireActivity().getSystemService(ALARM_SERVICE) as AlarmManager
+        alarmManager.set(AlarmManager.RTC_WAKEUP, endDate.time, pendingIntent)
     }
 
 }

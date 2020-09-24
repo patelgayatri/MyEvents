@@ -19,7 +19,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
     }
 
-    private fun setAnimation() {
+
+    fun setAnimation() {
         if (Build.VERSION.SDK_INT > 20) {
             val explode = Explode()
             explode.setDuration(800)
@@ -28,5 +29,4 @@ class MainActivity : AppCompatActivity() {
             window.enterTransition = explode
         }
     }
-
 }

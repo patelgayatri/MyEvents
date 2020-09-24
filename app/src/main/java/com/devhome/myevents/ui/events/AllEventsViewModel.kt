@@ -7,29 +7,44 @@ import androidx.lifecycle.viewModelScope
 import com.devhome.myevents.data.AppDatabase
 import com.devhome.myevents.data.entity.Events
 import com.devhome.myevents.data.repo.EventRepository
+import io.reactivex.Single
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AllEventsViewModel(application: Application):AndroidViewModel(application){
+class AllEventsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository:EventRepository
-    val allEvents:LiveData<List<Events>>
+    private var id: Long = 0
+    private val repository: EventRepository
+    val allEvents: LiveData<List<Events>>
 
     init {
-        val eventDao=AppDatabase.getInstance(application.applicationContext).eventsDao()
-        repository= EventRepository(eventDao)
-        allEvents=repository.eventList
+        val eventDao = AppDatabase.getInstance(application.applicationContext).eventsDao()
+        repository = EventRepository(eventDao)
+        allEvents = repository.eventList
     }
 
-    fun insert(events: Events)=viewModelScope.launch(Dispatchers.IO) {
+    fun insert(events: Events) = viewModelScope.launch(Dispatchers.IO) {
         repository.insertEvent(events)
     }
 
-    fun update(events: Events)=viewModelScope.launch(Dispatchers.IO) {
+    fun insertEventId(events: Events): Long {
+        viewModelScope.launch(Dispatchers.IO) {
+            id = repository.insertEvent(events)
+        }
+        return id
+    }
+
+    fun addData(event: Events): Single<Long>? {
+        return Single.fromCallable<Long> {
+            repository.insertEvent(event)
+        }
+    }
+
+    fun update(events: Events) = viewModelScope.launch(Dispatchers.IO) {
         repository.updateEvent(events)
     }
 
-    fun delete(events: Events)=viewModelScope.launch(Dispatchers.IO) {
+    fun delete(events: Events) = viewModelScope.launch(Dispatchers.IO) {
         repository.deleteEvent(events)
     }
 
