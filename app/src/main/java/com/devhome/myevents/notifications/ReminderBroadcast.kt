@@ -3,12 +3,14 @@ package com.devhome.myevents.notifications
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.devhome.myevents.R
 import com.devhome.myevents.extensions.getNotificationID
+import com.devhome.myevents.ui.MainActivity
 
 class ReminderBroadcast : BroadcastReceiver() {
     private lateinit var builder: Notification.Builder
@@ -41,11 +43,14 @@ class ReminderBroadcast : BroadcastReceiver() {
                 .setContentTitle("My Event")
                 .setContentText(description)
                 .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(PendingIntent.getActivity(context,0,Intent(context,MainActivity::class.java),0))
         } else {
             builder = Notification.Builder(context)
                 .setContentTitle("My Event")
                 .setContentText(description)
                 .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(PendingIntent.getActivity(context,0,Intent(context,MainActivity::class.java),0))
+
         }
         notificationManager.notify(notificationId, builder.build())
 
