@@ -1,5 +1,6 @@
 package com.devhome.myevents.ui.events
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,17 +16,16 @@ import java.util.*
 
 class EventsAdapter(private val listener: Listener) :
     RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
-
     private var eventList = emptyList<Events>()
+    var colorList = arrayOf("#ffbf00", "#40B640", "#FF5555", "#bb33ff")
 
     interface Listener {
         fun onItemClick(events: Events, position: Int)
         fun onLongitemClick(events: Events): Boolean
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(eventList[position], listener, position)
+        holder.bind(eventList[position], colorList, listener, position)
     }
 
     override fun getItemCount(): Int = eventList.size
@@ -45,8 +45,11 @@ class EventsAdapter(private val listener: Listener) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+        val mRandom = Random()
+
         fun bind(
             events: Events,
+            colorList: Array<String>,
             listener: Listener,
             position: Int
         ) {
@@ -54,6 +57,8 @@ class EventsAdapter(private val listener: Listener) :
             itemView.name_txt.text = events.eventName
             itemView.date_txt.text = events.eventDate
             itemView.time_txt.text = events.eventTime
+            card.layoutParams.height = getRandomIntInRange(600, 450)
+            card.setCardBackgroundColor(Color.parseColor(colorList[position % 4]))
 
             setCounterData(events)
             itemView.setOnClickListener { listener.onItemClick(events, position) }
@@ -63,6 +68,12 @@ class EventsAdapter(private val listener: Listener) :
 
 
         }
+
+        private fun getRandomIntInRange(max: Int, min: Int): Int {
+            return mRandom.nextInt(max - min) + min
+
+        }
+
 
         private fun setCounterData(eventData: Events) {
             try {
@@ -94,7 +105,10 @@ class EventsAdapter(private val listener: Listener) :
                 println("Excep$e")
             }
         }
-
-
     }
 }
+
+
+
+
+

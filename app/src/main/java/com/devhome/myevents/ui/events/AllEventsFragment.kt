@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.devhome.myevents.R
 import com.devhome.myevents.data.entity.Events
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -46,7 +47,7 @@ class AllEventsFragment : Fragment(), EventsAdapter.Listener {
         val recyclerView = root?.findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = EventsAdapter(this)
         recyclerView?.adapter = adapter
-        recyclerView?.layoutManager = LinearLayoutManager(activity)
+        recyclerView?.layoutManager = StaggeredGridLayoutManager(resources.getInteger(R.integer.column), StaggeredGridLayoutManager.VERTICAL)
         viewModel.allEvents.observe(viewLifecycleOwner, Observer { events ->
             events.let {
                 if (it.size > 0) no_data_lin.visibility = View.GONE
@@ -64,7 +65,7 @@ class AllEventsFragment : Fragment(), EventsAdapter.Listener {
     override fun onLongitemClick(events: Events): Boolean {
         val dialogBuilder = AlertDialog.Builder(activity)
         dialogBuilder.setTitle(getString(R.string.str_dlt))
-        dialogBuilder.setMessage(getString(R.string.str_dlt_que) + events.eventName)
+        dialogBuilder.setMessage(getString(R.string.str_dlt_que) +" "+ events.eventName+"?")
             .setCancelable(false)
             .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
                 viewModel.delete(events)

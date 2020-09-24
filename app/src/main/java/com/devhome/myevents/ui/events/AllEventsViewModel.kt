@@ -27,18 +27,6 @@ class AllEventsViewModel(application: Application) : AndroidViewModel(applicatio
         repository.insertEvent(events)
     }
 
-    fun insertEventId(events: Events): Long {
-        viewModelScope.launch(Dispatchers.IO) {
-            id = repository.insertEvent(events)
-        }
-        return id
-    }
-
-    fun addData(event: Events): Single<Long>? {
-        return Single.fromCallable<Long> {
-            repository.insertEvent(event)
-        }
-    }
 
     fun update(events: Events) = viewModelScope.launch(Dispatchers.IO) {
         repository.updateEvent(events)

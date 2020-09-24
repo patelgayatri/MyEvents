@@ -159,12 +159,10 @@ class AddEventFragment : Fragment() {
                     viewModel.update(event)
                 }
                 else -> {
-                     var nId=viewModel.addData(event)
-                    setNotification(event,0)
-
-
+                    viewModel.insert(event)
                 }
             }
+            setNotification(event)
 
             countDownTimer?.cancel()
             activity?.onBackPressed()
@@ -243,18 +241,16 @@ class AddEventFragment : Fragment() {
         }.start()
     }
 
-    private fun setNotification(eventData: Events, id: Int) {
-        println("===id="+id)
+    private fun setNotification(eventData: Events) {
 
         val endDateDay = eventData.eventDate + " " + eventData.eventTime
         val format1 = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
         val endDate = format1.parse(endDateDay)
 
-
+        println("====sent" + eventData.eventName)
         val intent = Intent(activity, ReminderBroadcast::class.java)
         val b = Bundle()
         b.putString("eventName", eventData.eventName)
-        b.putInt("eventId", id)
         intent.putExtras(b)
 
         val pendingIntent = PendingIntent.getBroadcast(
@@ -263,6 +259,7 @@ class AddEventFragment : Fragment() {
             intent,
             0
         )
+
         val alarmManager: AlarmManager =
             requireActivity().getSystemService(ALARM_SERVICE) as AlarmManager
         alarmManager.set(AlarmManager.RTC_WAKEUP, endDate.time, pendingIntent)

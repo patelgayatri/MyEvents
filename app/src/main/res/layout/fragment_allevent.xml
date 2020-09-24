@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color2"
+    android:background="@color/primaryColor"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -43,6 +43,7 @@
                 android:fontFamily="@font/averia_gruesa_libre"
                 android:text="@string/empty"
                 android:textSize="25sp"
+                android:textColor="@color/white"
                 style="@style/textCardStyle"/>
         </LinearLayout>
 

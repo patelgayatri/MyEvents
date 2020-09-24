@@ -7,7 +7,7 @@ import com.devhome.myevents.data.entity.Events
 class EventRepository(private val eventDao: EventDao) {
     val eventList: LiveData<List<Events>> = eventDao.getAllEvents()
 
-    fun insertEvent(events: Events): Long {
+    fun insertEvent(events: Events) {
         return eventDao.insertEvent(events)
     }
 

@@ -14,7 +14,7 @@ interface EventDao {
     fun getPastEvents(): List<Events>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertEvent(events: Events): Long
+    fun insertEvent(events: Events)
 
     @Update
     fun updateEvent(events: Events)
