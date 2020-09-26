@@ -22,9 +22,9 @@ class ReminderBroadcast : BroadcastReceiver() {
         notificationManager =
             context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         var notificationChannel: NotificationChannel
-        val chanelId = context.packageName
         var description=intent?.extras?.getString("eventName")
         val notificationId = getNotificationID()
+        val chanelId = "${context.packageName}-$description}"
 
         println("====rec" + description)
 

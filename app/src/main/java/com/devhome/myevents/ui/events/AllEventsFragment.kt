@@ -33,7 +33,7 @@ class AllEventsFragment : Fragment(), EventsAdapter.Listener {
         (activity as AppCompatActivity?)!!.supportActionBar?.show()
         val window: Window = activity?.window!!
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.navigationBarColor = ContextCompat.getColor(window.context, R.color.color2)
+        window.navigationBarColor = ContextCompat.getColor(window.context, R.color.primaryColor)
         window.statusBarColor = ContextCompat.getColor(window.context, R.color.primaryDarkColor)
 
 
