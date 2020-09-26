@@ -252,6 +252,8 @@ class AddEventFragment : Fragment() {
         b.putString("eventName", eventData.eventName)
         intent.putExtras(b)
 
+
+
         val pendingIntent = PendingIntent.getBroadcast(
             this.context,
             0,
