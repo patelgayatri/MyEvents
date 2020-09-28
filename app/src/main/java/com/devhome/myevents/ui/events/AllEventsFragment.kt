@@ -35,8 +35,6 @@ class AllEventsFragment : Fragment(), EventsAdapter.Listener {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.navigationBarColor = ContextCompat.getColor(window.context, R.color.primaryColor)
         window.statusBarColor = ContextCompat.getColor(window.context, R.color.primaryDarkColor)
-
-
         val root = inflater.inflate(R.layout.fragment_allevent, container, false)
         initialize(root)
         return root
@@ -89,5 +87,6 @@ class AllEventsFragment : Fragment(), EventsAdapter.Listener {
             findNavController().navigate(R.id.action_AllEventFragment_to_AddEventFragment)
         }
     }
+
 }
 

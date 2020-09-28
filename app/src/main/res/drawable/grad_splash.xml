@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle" >
+    android:shape="rectangle">
     <!-- The fill color -->
-    <solid android:color="@color/primaryDarkColor"  />
-    <stroke android:color="@color/secondaryColor"/>
-    <!-- Just to add a border -->
+    <solid android:color="@color/primaryDarkColor" />
 
-    <corners android:bottomRightRadius="300dp" android:topLeftRadius="300dp" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/secondaryColor" />    <!-- Just to add a border -->
+
+    <corners
+        android:bottomRightRadius="300dp"
+        android:topLeftRadius="300dp" />
 
 </shape>

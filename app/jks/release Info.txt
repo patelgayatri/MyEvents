@@ -1,0 +1,11 @@
+D:\myevents\jks\myevents.jks
+
+pass: GayatriNikunj2257
+
+alias: myevents
+
+name Gayatri Patel
+Organization DevSpace
+Sydney
+NSW
+AU

@@ -23,8 +23,8 @@ class Splash : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        window.navigationBarColor = ContextCompat.getColor(this, R.color.white)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.primaryColor)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.primaryColor)
 
         val firstTime = Prefs.getBoolean("first_time", true)
         val animation: Animation = AnimationUtils.loadAnimation(
