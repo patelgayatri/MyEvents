@@ -36,7 +36,6 @@
                 android:text="@string/yourlist"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textColor="@color/secondaryLightColor"
                 style="@style/lableStyle"/>
 
             <TextView
