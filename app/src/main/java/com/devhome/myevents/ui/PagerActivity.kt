@@ -30,7 +30,7 @@ class PagerActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_pager)
 
         window.navigationBarColor = ContextCompat.getColor(this, R.color.white)
-        Prefs.putAny("first_time",false)
+        Prefs.putAny("first_time", false)
 
         setViewPager()
         intro_btn_next.setOnClickListener(this)
@@ -82,6 +82,10 @@ class PagerActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.intro_btn_next -> {
                 when (currentPage) {
+                    1 ->{
+                        viewPager.currentItem = currentPage + 1
+                        intro_btn_next.text = getString(R.string.finish)
+                    }
                     2 -> {
                         val intent = Intent(this, MainActivity::class.java)
                         val options = ActivityOptions.makeSceneTransitionAnimation(this)

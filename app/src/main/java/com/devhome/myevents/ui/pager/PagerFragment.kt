@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.devhome.myevents.R
 import kotlinx.android.synthetic.main.fragment_pager.view.*
 
@@ -24,12 +23,17 @@ class PagerFragment : Fragment() {
             R.drawable.icon_date,
             R.drawable.icon_time
         )
+        val onBoardingBack = arrayOf(
+            R.drawable.back_one,
+            R.drawable.back_two,
+            R.drawable.back_three
+        )
         val mainText =
             arrayOf("Create Event", "View Events", "Get Notified")
         val subText =
             arrayOf(
                 "Create your event with name, date and time",
-                "See your upcoming events list",
+                "See your upcoming Events List with days",
                 "Get Notified by receiving notification"
             )
         var fragPos = arguments?.getInt(ARG_SECTION_NUMBER)
@@ -42,10 +46,11 @@ class PagerFragment : Fragment() {
             )
         )
 
+        root.imgLin.setBackgroundResource(onBoardingBack[fragPos])
         root.imageView.setColorFilter(
             ContextCompat.getColor(
                 requireActivity(),
-                R.color.primaryColor
+                R.color.white
             ), android.graphics.PorterDuff.Mode.SRC_IN
         );
 

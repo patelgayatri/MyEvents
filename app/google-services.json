@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "725360899303",
+    "firebase_url": "https://myevets-3473a.firebaseio.com",
+    "project_id": "myevets-3473a",
+    "storage_bucket": "myevets-3473a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725360899303:android:7b1097ebfc4aa8d1a3de42",
+        "android_client_info": {
+          "package_name": "com.devhome.myevents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "725360899303-tl4j8rtb57q19b6r3thb4ovpobb099ap.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_B9uGz6XeNmmHsf3P9CwL76YKDHZn6eg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "725360899303-tl4j8rtb57q19b6r3thb4ovpobb099ap.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

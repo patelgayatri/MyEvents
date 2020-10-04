@@ -49,8 +49,9 @@ class AddEventFragment : Fragment() {
         (activity as AppCompatActivity?)!!.supportActionBar?.hide()
         val window: Window = activity?.window!!
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.navigationBarColor = ContextCompat.getColor(window.context, R.color.primaryLightColor)
-        window.statusBarColor = ContextCompat.getColor(window.context, R.color.primaryLightColor)
+        window.navigationBarColor =
+            ContextCompat.getColor(window.context, R.color.primaryColor)
+        window.statusBarColor = ContextCompat.getColor(window.context, R.color.primaryColor)
 
         return inflater.inflate(R.layout.fragment_add_event, container, false)
     }
@@ -247,6 +248,7 @@ class AddEventFragment : Fragment() {
         val format1 = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
         val endDate = format1.parse(endDateDay)
 
+        println("====sent" + eventData.eventName)
         val intent = Intent(activity, ReminderBroadcast::class.java)
         val b = Bundle()
         b.putString("eventName", eventData.eventName)
@@ -256,7 +258,7 @@ class AddEventFragment : Fragment() {
 
         val pendingIntent = PendingIntent.getBroadcast(
             this.context,
-            0,
+            endDate.time.toInt(),
             intent,
             0
         )

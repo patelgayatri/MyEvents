@@ -2,6 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
     app:startDestination="@id/AllEventFragment">
 
     <fragment
@@ -12,7 +13,8 @@
 
         <action
             android:id="@+id/action_AllEventFragment_to_AddEventFragment"
-            app:destination="@id/AddEventFragment" />
+            app:destination="@id/AddEventFragment"
+           />
     </fragment>
     <fragment
         android:id="@+id/AddEventFragment"
@@ -22,7 +24,10 @@
 
         <action
             android:id="@+id/action_AddEventFragment_to_AllEventFragment"
-            app:destination="@id/AllEventFragment" />
+            app:destination="@id/AllEventFragment"
+            app:popUpTo="@+id/AllEventFragment"
+            app:popUpToInclusive="true"
+            />
     </fragment>
 
 </navigation>
