@@ -3,12 +3,12 @@
 # Only use spaces to indent your .yml configuration.
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
-image: maven:3.6.1
+image: javiersantos/android-ci:27.0.3
 
 pipelines:
   default:
     - step:
-        caches:
-          - maven
-        script: # Modify the commands below to build your repository.
-          - mvn -B verify # -B batch mode makes Maven less verbose
+        script:
+          - export GRADLE_USER_HOME=`pwd`/.gradle
+          - chmod +x ./gradlew
+          - ./gradlew assembleDebug
