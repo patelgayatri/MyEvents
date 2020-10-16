@@ -3,12 +3,10 @@
 # Only use spaces to indent your .yml configuration.
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
-image: javiersantos/android-ci:27.0.3
+image: atlassian/default-image:2
 
 pipelines:
   default:
     - step:
         script:
-          - export GRADLE_USER_HOME=`pwd`/.gradle
-          - chmod +x ./gradlew
-          - ./gradlew assembleDebug
+          - echo "Everything is awesome!"
