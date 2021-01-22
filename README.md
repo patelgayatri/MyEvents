@@ -10,7 +10,6 @@ Display incoming events added by user.
 * Onboarding Screen
 
 ### Screenshots
-<a href="url"><img src="https://play-lh.googleusercontent.com/c02d2aaxdA_mkj2RluB9MQL_zS5fKH6872Ua-uL5JVYq29f01S9faD8ZfDmQIVV-c4hX=w720-h310-rw" align="left" height="350" width="180" ></a>
 
 <a href="url"><img src="https://play-lh.googleusercontent.com/XvQyD_epewA-U8VoYQlgaFk6N5UiyuRztB4g1h9E0F9oz2ltx_qWYNGrMmGEY9sIs2C1=w720-h310-rw" align="left" height="350" width="180" ></a>
 
